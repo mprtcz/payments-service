@@ -9,7 +9,7 @@
         <version>${revision}</version>
     </parent>
 
-    <artifactId>initiator</artifactId>
+    <artifactId>application</artifactId>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
@@ -17,11 +17,20 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
-<!--    <dependencies>-->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework</groupId>-->
-<!--            <artifactId>spring-context</artifactId>-->
-<!--        </dependency>-->
-<!--    </dependencies>-->
-
+    <dependencies>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.mprtcz</groupId>
+            <artifactId>initiator</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.mprtcz</groupId>
+            <artifactId>status-holder</artifactId>
+            <version>${revision}</version>
+        </dependency>
+    </dependencies>
 </project>
