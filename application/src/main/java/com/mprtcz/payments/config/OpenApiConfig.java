@@ -19,7 +19,7 @@ public class OpenApiConfig implements WebMvcConfigurer {
 
     @Bean
     public GroupedOpenApi paymentsApi() {
-        return GroupedOpenApi.builder().group("payments").pathsToMatch("v1/payment/**").build();
+        return GroupedOpenApi.builder().group("payments").pathsToMatch("/v1/payment/**").build();
     }
 
     @Bean
