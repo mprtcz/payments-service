@@ -23,6 +23,11 @@ public class OpenApiConfig implements WebMvcConfigurer {
     }
 
     @Bean
+    public GroupedOpenApi statusApi() {
+        return GroupedOpenApi.builder().group("status").pathsToMatch("/v1/status/**").build();
+    }
+
+    @Bean
     public OpenAPI apiInfo() {
         return new OpenAPI().info(new Info().title("Payments Service"));
     }
