@@ -11,7 +11,8 @@
 	<groupId>com.mprtcz</groupId>
 	<artifactId>payments</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>payments</name>
+    <packaging>pom</packaging>
+    <name>payments</name>
 	<description>Demo service for online payments.</description>
 	<url/>
 	<licenses>
@@ -20,7 +21,10 @@
 	<developers>
 		<developer/>
 	</developers>
-	<scm>
+    <modules>
+		<module>initiator</module>
+	</modules>
+    <scm>
 		<connection/>
 		<developerConnection/>
 		<tag/>
