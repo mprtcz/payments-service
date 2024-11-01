@@ -43,6 +43,7 @@
         <openapi.version>2.1.0</openapi.version>
         <embedded-redis.version>0.7.3</embedded-redis.version>
         <jacoco.version>0.8.12</jacoco.version>
+        <spring-cloud.version>4.1.4</spring-cloud.version>
         <sonar.coverage.jacoco.xmlReportPaths>
             ${basedir}/application/target/site/jacoco-aggregate/jacoco.xml
         </sonar.coverage.jacoco.xmlReportPaths>
@@ -109,6 +110,11 @@
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>${jacoco.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-contract-stub-runner</artifactId>
+                <version>${spring-cloud.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
