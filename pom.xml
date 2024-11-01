@@ -8,6 +8,7 @@
         <module>application</module>
         <module>initiator</module>
         <module>status-holder</module>
+        <module>validator</module>
     </modules>
 
     <parent>

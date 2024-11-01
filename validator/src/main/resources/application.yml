@@ -1,0 +1,4 @@
+validation-rules:
+  blacklisted-accounts:
+    - "123456789012345678"
+    - "876543210987654321"

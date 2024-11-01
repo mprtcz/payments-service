@@ -16,21 +16,17 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
 @SpringJUnitConfig
 @WebMvcTest
 @ContextConfiguration(classes = IntegrationTestConfig.class)
 class PaymentInitiatorIntegrationTest {
-
-    @Autowired
-    ObjectMapper objectMapper;
     @Autowired
     private MockMvc mockMvc;
     @Autowired
     private PaymentStatusController paymentStatusController;
 
     @Test
-    public void testPaymentStatus_success() throws Exception {
+    void testPaymentStatus_success() throws Exception {
         Mockito.when(
                 paymentStatusController.getPaymentStatus(any(String.class)))
             .thenReturn(PaymentStatus.STARTED);
@@ -42,7 +38,7 @@ class PaymentInitiatorIntegrationTest {
     }
 
     @Test
-    public void testPaymentInitiator_success() throws Exception {
+    void testPaymentInitiator_success() throws Exception {
         var uuid = "f042cedd-f424-44fe-b856-8d3958082e0f";
         Mockito.when(paymentStatusController.createPaymentStatus())
             .thenReturn(uuid);
