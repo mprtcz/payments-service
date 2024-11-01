@@ -3,7 +3,6 @@ package com.mprtcz.config;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;
@@ -16,10 +15,6 @@ import java.util.Set;
 @Component
 @Slf4j
 public class RedisConfig {
-
-    @Value("${spring.redis.port}")
-    private int redisPort;
-
     private RedisCluster cluster;
     private Set<String> jedisSentinelHosts;
 
