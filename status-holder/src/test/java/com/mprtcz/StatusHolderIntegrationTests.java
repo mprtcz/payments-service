@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringJUnitConfig
 @ContextConfiguration(classes = {IntegrationTestConfig.class})
-public class StatusHolderIntegrationTests {
+class StatusHolderIntegrationTests {
 
     @Autowired
     private PaymentStatusController paymentStatusController;
@@ -26,14 +26,14 @@ public class StatusHolderIntegrationTests {
     }
 
     @Test
-    public void statusHolderIntegrationTests_insertsStatusSuccessfully() {
+    void statusHolderIntegrationTests_insertsStatusSuccessfully() {
         String paymentId = paymentStatusController.createPaymentStatus();
 
         assertEquals(PaymentStatus.STARTED.getStatus(), jedis.get(paymentId));
     }
 
     @Test
-    public void statusHolderIntegrationTests_returnMissingForNotPresentStatus() {
+    void statusHolderIntegrationTests_returnMissingForNotPresentStatus() {
         var status = paymentStatusController.getPaymentStatus("missing_payment_status");
         assertEquals(PaymentStatus.MISSING, status);
     }

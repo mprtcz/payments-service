@@ -8,6 +8,7 @@ class PaymentsApplicationTests {
 
 	@Test
 	void contextLoads() {
+        // Verifies context loading.
 	}
 
 }
