@@ -12,3 +12,15 @@
 [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=mprtcz_payments-service&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=mprtcz_payments-service)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=mprtcz_payments-service&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=mprtcz_payments-service)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=mprtcz_payments-service&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=mprtcz_payments-service)
+
+```mermaid
+  info
+```
+
+```mermaid
+graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;
+```
