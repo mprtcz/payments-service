@@ -2,6 +2,7 @@ package com.mprtcz;
 
 
 import com.mprtcz.controller.PaymentStatusController;
+import com.mprtcz.controller.ValidationController;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -19,5 +20,11 @@ public class IntegrationTestConfig {
     @Primary
     public PaymentStatusController getPaymentStatusController() {
         return mock(PaymentStatusController.class);
+    }
+
+    @Bean
+    @Primary
+    public ValidationController getValidationController() {
+        return mock(ValidationController.class);
     }
 }

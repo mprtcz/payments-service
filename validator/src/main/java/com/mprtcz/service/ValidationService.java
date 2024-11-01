@@ -1,19 +1,22 @@
 package com.mprtcz.service;
 
-import com.mprtcz.config.ValidationRulesProperties;
+import com.mprtcz.validators.TransactionValidator;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+
+@Service
 @RequiredArgsConstructor
 public class ValidationService {
-    private final ValidationRulesProperties validationRulesProperties;
+    private final List<TransactionValidator> validators;
 
-    public boolean validate(
-        String sourceAccountNumber, String destinationAccountNumber) {
-        return !validationRulesProperties.getBlacklistedAccounts()
-            .contains(sourceAccountNumber) &&
-            !validationRulesProperties.getBlacklistedAccounts()
-                .contains(destinationAccountNumber);
+    public boolean validate(String sourceAccountNumber,
+            String destinationAccountNumber) {
+        return validators.stream()
+                .map(validator -> validator
+                        .isValid(sourceAccountNumber, destinationAccountNumber))
+                .allMatch(CompletableFuture::join);
     }
 }

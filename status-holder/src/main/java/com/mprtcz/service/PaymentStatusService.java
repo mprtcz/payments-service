@@ -21,4 +21,9 @@ public class PaymentStatusService {
     public PaymentStatus getPaymentStatus(String paymentId) {
         return PaymentStatus.fromStatus(paymentStatusRepository.getPaymentStatus(paymentId));
     }
+
+    public void markTransactionAsInvalid(String id) {
+        paymentStatusRepository.setStatusForTransaction(id,
+                PaymentStatus.INVALID);
+    }
 }

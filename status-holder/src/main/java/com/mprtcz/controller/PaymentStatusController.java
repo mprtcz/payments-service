@@ -7,4 +7,5 @@ import org.springframework.stereotype.Component;
 public interface PaymentStatusController {
     String createPaymentStatus();
     PaymentStatus getPaymentStatus(String paymentId);
+    void markTransactionAsInvalid(String id);
 }

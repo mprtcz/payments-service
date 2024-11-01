@@ -19,7 +19,7 @@ public class ValidatorIntegrationTests {
     private ValidationController validationController;
 
     @Test
-    void shouldReturnTrueForNotBlacklistedAccountNumber() {
+    void shouldReturnTrueForCorrectData() {
         var notBlacklistedAccountNumber1 = "12345678900987654";
         var notBlacklistedAccountNumber2 = "12345678900987655";
 
@@ -32,6 +32,16 @@ public class ValidatorIntegrationTests {
     void shouldReturnFalseForBlacklistedAccountNumber() {
         var notBlacklistedAccountNumber = "12345678900987654";
         var blacklistedAccountNumber = "123456789012345678";
+
+        assertFalse(validationController.validate(notBlacklistedAccountNumber,
+            blacklistedAccountNumber
+        ));
+    }
+
+    @Test
+    void shouldReturnFalseForAccountNumbersInDifferentCountries() {
+        var notBlacklistedAccountNumber = "12345678900987654";
+        var blacklistedAccountNumber = "21345678900987654";
 
         assertFalse(validationController.validate(notBlacklistedAccountNumber,
             blacklistedAccountNumber

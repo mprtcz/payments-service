@@ -20,4 +20,9 @@ public class PaymentStatusLibraryController implements PaymentStatusController {
     public PaymentStatus getPaymentStatus(String paymentId) {
         return paymentStatusService.getPaymentStatus(paymentId);
     }
+
+    @Override
+    public void markTransactionAsInvalid(String id) {
+        paymentStatusService.markTransactionAsInvalid(id);
+    }
 }

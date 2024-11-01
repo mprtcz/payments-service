@@ -31,5 +31,11 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-contract-stub-runner</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.mprtcz</groupId>
+            <artifactId>validator</artifactId>
+            <version>0.0.1</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 </project>
