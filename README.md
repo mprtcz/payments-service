@@ -13,14 +13,19 @@
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=mprtcz_payments-service&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=mprtcz_payments-service)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=mprtcz_payments-service&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=mprtcz_payments-service)
 
-```mermaid
-  info
-```
 
 ```mermaid
-graph TD;
-    A-->B;
-    A-->C;
-    B-->D;
-    C-->D;
+graph TD
+    S{User} -->|POST /v1/payment/initiate| A[Initiator]
+    A -->|createPaymentStatus| B[status-holder]
+    B -->|UUID string| A 
+    B --> C[(Redis)]
+    A --> F[Validation Service]
+    F --> G([Queue])
+    G --> D[Transaction Service]
+    D --> E[(RDS)]
+    E --> D
+    D -->|Update status| B 
+    F -->|Update status| B 
+
 ```
