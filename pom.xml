@@ -43,6 +43,9 @@
         <openapi.version>2.1.0</openapi.version>
         <embedded-redis.version>0.7.3</embedded-redis.version>
         <jacoco.version>0.8.12</jacoco.version>
+        <sonar.coverage.jacoco.xmlReportPaths>
+            ../application/target/site/jacoco-aggregate/jacoco.xml
+        </sonar.coverage.jacoco.xmlReportPaths>
     </properties>
     <dependencies>
         <dependency>
