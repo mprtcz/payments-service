@@ -6,8 +6,7 @@
     <parent>
         <groupId>com.mprtcz</groupId>
         <artifactId>payments-service</artifactId>
-        <version>0.0.1</version>
-		<relativePath/>
+        <version>${revision}</version>
     </parent>
 
     <artifactId>validator</artifactId>
