@@ -1,0 +1,5 @@
+spring.scheduling.enabled: false
+logging:
+  level:
+    org:
+      springframework: DEBUG

@@ -24,7 +24,7 @@ public class QueueMessage<T> {
         this.clock = Clock.systemUTC();
     }
 
-    QueueMessage(T messageContent, Clock clock) {
+    public QueueMessage(T messageContent, Clock clock) {
         this.messageContent = messageContent;
         this.clock = clock;
     }
