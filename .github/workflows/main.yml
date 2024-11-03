@@ -1,0 +1,52 @@
+name: Build and run Sonar
+
+on:
+  push:
+    branches:
+      - main  # Adjust branch as needed
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 21  # Adjust JDK version as needed
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Cache Maven dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven
+      - name: Build and run tests
+        run: mvn clean verify -am
+
+      - name: SonarCloud Scan
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          mvn sonar:sonar \
+            -Dsonar.projectKey=mprtcz_payments-service \
+            -Dsonar.organization=mprtcz \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+      - name: Upload test coverage to SonarCloud
+        if: success()  # Only run if previous steps succeeded
+        run: |
+          mvn sonar:sonar \
+            -Dsonar.projectKey=mprtcz_payments-service \
+            -Dsonar.organization=mprtcz \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.coverage.jacoco.xmlReportPaths=application/target/site/jacoco/jacoco.xml \
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
