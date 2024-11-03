@@ -40,7 +40,7 @@ jobs:
             -Dsonar.projectKey=mprtcz_payments-service \
             -Dsonar.organization=mprtcz \
             -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+            -Dsonar.token=${{ secrets.SONAR_TOKEN }}
       - name: Upload test coverage to SonarCloud
         if: success()  # Only run if previous steps succeeded
         run: |
@@ -49,4 +49,4 @@ jobs:
             -Dsonar.organization=mprtcz \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.coverage.jacoco.xmlReportPaths=application/target/site/jacoco/jacoco.xml \
-            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+            -Dsonar.token=${{ secrets.SONAR_TOKEN }}
