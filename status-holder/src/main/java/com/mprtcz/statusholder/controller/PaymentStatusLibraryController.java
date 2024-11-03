@@ -25,4 +25,14 @@ public class PaymentStatusLibraryController implements PaymentStatusController {
     public void markTransactionAsInvalid(String id) {
         paymentStatusService.markTransactionAsInvalid(id);
     }
+
+    @Override
+    public void markTransactionAsSuccessful(String id) {
+        paymentStatusService.markTransactionAsSuccessful(id);
+    }
+
+    @Override
+    public void markTransactionAsFailed(String id) {
+        paymentStatusService.markTransactionAsFailed(id);
+    }
 }

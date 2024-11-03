@@ -10,7 +10,8 @@ public enum PaymentStatus {
     SUCCESS("success"),
     ERROR("error"),
     MISSING("missing"),
-    INVALID("invalid");
+    INVALID("invalid"),
+    FAILED("failed");
 
     private final String status;
 

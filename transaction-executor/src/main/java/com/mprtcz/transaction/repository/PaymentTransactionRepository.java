@@ -31,7 +31,6 @@ public class PaymentTransactionRepository {
     @Transactional
     public void transfer(String fromAccount, String toAccount, BigDecimal amount) {
         var fromAccountOpt = findByAccountNumber(fromAccount);
-        System.out.println("fromAccountOpt = " + fromAccountOpt);
         if (fromAccountOpt.isEmpty()) {
             throw new IllegalArgumentException("Account not found");
         }

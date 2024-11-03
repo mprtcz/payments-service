@@ -45,9 +45,10 @@ class TransactionExecutorIntegrationTest {
     void shouldProcessTransactionSuccessfully() {
         var requesterAccountNumber = "123456789012345678";
         var destinationAccountNumber = "123456789012345679";
+        var id = "some-id";
         var paymentMessage = new TransactionRequest(requesterAccountNumber,
                 destinationAccountNumber,
-                BigDecimal.valueOf(200));
+                BigDecimal.valueOf(200), id);
         publisherQueue.publish(paymentMessage);
 
         paymentTransactionController.processQueueMessages();
@@ -66,9 +67,10 @@ class TransactionExecutorIntegrationTest {
     void shouldNotProcessTransaction_insufficientFunds() {
         var requesterAccountNumber = "12345678901234567";
         var destinationAccountNumber = "123456789012345679";
+        var id = "some-id";
         var paymentMessage = new TransactionRequest(requesterAccountNumber,
                 destinationAccountNumber,
-                BigDecimal.valueOf(200));
+                BigDecimal.valueOf(200), id);
         publisherQueue.publish(paymentMessage);
 
         var ex = assertThrows(IllegalArgumentException.class,
@@ -81,9 +83,10 @@ class TransactionExecutorIntegrationTest {
     void shouldNotProcessTransaction_missingRequesterAccount() {
         var requesterAccountNumber = "12345678901234566";
         var destinationAccountNumber = "123456789012345679";
+        var id = "some-id";
         var paymentMessage = new TransactionRequest(requesterAccountNumber,
                 destinationAccountNumber,
-                BigDecimal.valueOf(200));
+                BigDecimal.valueOf(200), id);
         publisherQueue.publish(paymentMessage);
 
         var ex = assertThrows(IllegalArgumentException.class,
@@ -96,13 +99,11 @@ class TransactionExecutorIntegrationTest {
     void shouldNotProcessTransaction_missingDestinationAccount() {
         var requesterAccountNumber = "123456789012345678";
         var destinationAccountNumber = "123456789012345670";
+        var id = "some-id";
 
-        var requesterAccoun2 = paymentTransactionRepository.findByAccountNumber(
-                requesterAccountNumber);
-        assertEquals(1000, requesterAccoun2.get().balance().intValue());
         var paymentMessage = new TransactionRequest(requesterAccountNumber,
                 destinationAccountNumber,
-                BigDecimal.valueOf(200));
+                BigDecimal.valueOf(200), id);
         publisherQueue.publish(paymentMessage);
 
         var ex = assertThrows(IllegalStateException.class,

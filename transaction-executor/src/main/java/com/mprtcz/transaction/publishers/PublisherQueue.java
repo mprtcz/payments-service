@@ -1,5 +1,7 @@
 package com.mprtcz.transaction.publishers;
 
+import com.mprtcz.statusholder.controller.PaymentStatusController;
+import com.mprtcz.transaction.dto.Identifiable;
 import org.assertj.core.util.VisibleForTesting;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -13,7 +15,9 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
 @Component
-public class PublisherQueue<T> {
+public class PublisherQueue<T extends Identifiable> {
+    private final PaymentStatusController paymentStatusController;
+
     private final long maxRetries;
     private final Duration TTL;
     private final Clock clock;
@@ -25,10 +29,12 @@ public class PublisherQueue<T> {
             @Value("${application.config.queue.dlq-capacity}") int dlqQueueCapacity,
             @Value("${application.config.queue.max-retries}") long maxRetries,
             @Value("${application.config.queue.ttl-seconds}") long ttl,
-            Clock clock) {
+            Clock clock,
+            PaymentStatusController paymentStatusController) {
         this.maxRetries = maxRetries;
         TTL = Duration.ofSeconds(ttl);
         this.clock = clock;
+        this.paymentStatusController = paymentStatusController;
 
         queue = new ArrayBlockingQueue<>(queueCapacity);
         deadLetterQueue = new ArrayBlockingQueue<>(dlqQueueCapacity);
@@ -47,6 +53,8 @@ public class PublisherQueue<T> {
         if (queueElement.getAttempts().get() >= maxRetries) {
             queue.remove(queueElement);
             deadLetterQueue.offer(queueElement);
+            paymentStatusController.markTransactionAsFailed(queueElement.getMessageContent()
+                    .getId());
             return null;
         }
 

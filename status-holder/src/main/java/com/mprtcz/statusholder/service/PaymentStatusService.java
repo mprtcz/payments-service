@@ -26,4 +26,14 @@ public class PaymentStatusService {
         paymentStatusRepository.setStatusForTransaction(id,
                 PaymentStatus.INVALID);
     }
+
+    public void markTransactionAsSuccessful(String id) {
+        paymentStatusRepository.setStatusForTransaction(id,
+                PaymentStatus.SUCCESS);
+    }
+
+    public void markTransactionAsFailed(String id) {
+        paymentStatusRepository.setStatusForTransaction(id,
+                PaymentStatus.FAILED);
+    }
 }

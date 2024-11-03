@@ -8,4 +8,6 @@ public interface PaymentStatusController {
     String createPaymentStatus();
     PaymentStatus getPaymentStatus(String paymentId);
     void markTransactionAsInvalid(String id);
+    void markTransactionAsSuccessful(String id);
+    void markTransactionAsFailed(String id);
 }

@@ -1,5 +1,10 @@
 package com.mprtcz.transaction.publishers;
 
+import com.mprtcz.statusholder.controller.PaymentStatusController;
+import com.mprtcz.transaction.dto.Identifiable;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -17,12 +22,13 @@ class PublisherQueueTest {
     private static final long MAX_RETRIES = 3;
     private static final long TTL = 30;
     public static final Clock clock = mock(Clock.class);
-    private final PublisherQueue<String> underTest = new PublisherQueue<>(
+    private final PublisherQueue<IdentifiableString> underTest = new PublisherQueue<>(
             QUEUE_CAPACITY,
             DLQ_QUEUE_CAPACITY,
             MAX_RETRIES,
             TTL,
-            clock);
+            clock,
+            mock(PaymentStatusController.class));
 
 
     @BeforeEach
@@ -32,7 +38,7 @@ class PublisherQueueTest {
 
     @Test
     void shouldAddElementToQueue_success() {
-        String message = "Hello";
+        var message = new IdentifiableString("Hello");
 
         underTest.publish(message);
 
@@ -44,7 +50,7 @@ class PublisherQueueTest {
 
     @Test
     void shouldAddElementToQueue_successNoAcknowledge() {
-        String message = "Hello";
+        var message = new IdentifiableString("Hello");
         underTest.publish(message);
 
         var result = underTest.take();
@@ -57,7 +63,7 @@ class PublisherQueueTest {
 
     @Test
     void shouldTakeElementToQueue_successWithAcknowledge() {
-        String message = "Hello";
+        var message = new IdentifiableString("Hello");
         underTest.publish(message);
 
         var result = underTest.take();
@@ -71,7 +77,7 @@ class PublisherQueueTest {
 
     @Test
     void shouldTakeElementToQueue_multipleTakesNoAcknowledge_lessThanRetryLimit() {
-        String message = "Hello";
+        var message = new IdentifiableString("Hello");
         underTest.publish(message);
 
         var result = underTest.take();
@@ -88,7 +94,7 @@ class PublisherQueueTest {
 
     @Test
     void shouldTakeElementToQueue_multipleTakesNoAcknowledge_moreThanRetryLimit() {
-        String message = "Hello";
+        var message = new IdentifiableString("Hello");
         underTest.publish(message);
 
         Instant first = Instant.now();
@@ -110,7 +116,7 @@ class PublisherQueueTest {
 
     @Test
     void shouldTakeElementToQueue_multipleTakesNoAcknowledge_exceedAttempts() {
-        String message = "Hello";
+        var message = new IdentifiableString("Hello");
         underTest.publish(message);
         Instant first = Instant.now();
         Instant second = first.plusSeconds(TTL + 5);
@@ -125,5 +131,17 @@ class PublisherQueueTest {
 
         assertEquals(0, underTest.queueSize());
         assertEquals(1, underTest.getAllDlqMessages().size());
+    }
+    
+    @AllArgsConstructor
+    @Getter
+    @EqualsAndHashCode
+    private static class IdentifiableString implements Identifiable {
+        private String content;
+     
+        @Override
+        public String getId() {
+            return "";
+        }
     }
 }

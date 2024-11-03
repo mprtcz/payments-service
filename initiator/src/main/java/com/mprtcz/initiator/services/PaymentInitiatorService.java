@@ -18,19 +18,17 @@ public class PaymentInitiatorService {
     private final PublisherQueue<TransactionRequest> publisherQueue;
 
     public String processPayment(PaymentRequest paymentRequest) {
-        // Connect to redis module to get uuid of the transaction
         var id = paymentStatusController.createPaymentStatus();
-        // Perform user security validations
         var validationResult = validationController.validate(paymentRequest.getPaymentRequesterAccountNumber(), paymentRequest.getPaymentDestinationAccountNumber());
         if (!validationResult) {
             paymentStatusController.markTransactionAsInvalid(id);
             throw new TransactionInvalidException();
         }
-        // Send a message to queue to validate transaction
         publisherQueue.publish(
                 new TransactionRequest(paymentRequest.getPaymentRequesterAccountNumber(),
                         paymentRequest.getPaymentDestinationAccountNumber(),
-                        paymentRequest.getAmount()));
+                        paymentRequest.getAmount(),
+                        id));
         return id;
     }
 
