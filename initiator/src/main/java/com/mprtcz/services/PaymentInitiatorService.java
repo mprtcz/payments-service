@@ -5,6 +5,7 @@ import com.mprtcz.controller.ValidationController;
 import com.mprtcz.controllers.dto.PaymentRequest;
 import com.mprtcz.dto.PaymentStatus;
 import com.mprtcz.exceptions.TransactionInvalidException;
+import com.mprtcz.publishers.PublisherQueue;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 public class PaymentInitiatorService {
     private final PaymentStatusController paymentStatusController;
     private final ValidationController validationController;
+    private final PublisherQueue<PaymentRequest> publisherQueue;
 
     public String processPayment(PaymentRequest paymentRequest) {
         // Connect to redis module to get uuid of the transaction
@@ -24,6 +26,7 @@ public class PaymentInitiatorService {
             throw new TransactionInvalidException();
         }
         // Send a message to queue to validate transaction
+        publisherQueue.publish(paymentRequest);
         return id;
     }
 

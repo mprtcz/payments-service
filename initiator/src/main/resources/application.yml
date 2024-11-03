@@ -1,0 +1,5 @@
+application.config.queue:
+  capacity: 50
+  dlq-capacity: 500
+  max-retries: 3
+  ttl-seconds: 300
