@@ -59,8 +59,8 @@ class TransactionExecutorIntegrationTest {
         var requesterAccount = paymentTransactionRepository.findByAccountNumber(
                 requesterAccountNumber);
 
-        assertEquals(destinationAccount.get().balance().intValue(), 700);
-        assertEquals(requesterAccount.get().balance().intValue(), 800);
+        assertEquals(700, destinationAccount.get().balance().intValue());
+        assertEquals(800, requesterAccount.get().balance().intValue());
     }
 
     @Test

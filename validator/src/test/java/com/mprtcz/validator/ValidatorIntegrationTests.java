@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @SpringBootTest
 @EnableConfigurationProperties
 @ContextConfiguration(classes = {IntegrationTestConfig.class})
-public class ValidatorIntegrationTests {
+class ValidatorIntegrationTests {
 
     @Autowired
     private ValidationController validationController;
