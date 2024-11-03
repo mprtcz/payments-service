@@ -2,6 +2,7 @@ package com.mprtcz.initiator;
 
 
 import com.mprtcz.statusholder.controller.PaymentStatusController;
+import com.mprtcz.transaction.publishers.PublisherQueue;
 import com.mprtcz.validator.controller.ValidationController;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -15,6 +16,12 @@ import static org.mockito.Mockito.mock;
 @ComponentScan(basePackages = "com.mprtcz.initiator")
 @ActiveProfiles("it")
 public class IntegrationTestConfig {
+
+    @Bean
+    @Primary
+    public PublisherQueue getPublisherQueue() {
+        return mock(PublisherQueue.class);
+    }
 
     @Bean
     @Primary

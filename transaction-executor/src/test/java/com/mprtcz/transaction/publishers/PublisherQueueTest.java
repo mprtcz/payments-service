@@ -1,4 +1,4 @@
-package com.mprtcz.initiator.publishers;
+package com.mprtcz.transaction.publishers;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

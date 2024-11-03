@@ -33,6 +33,11 @@
             <artifactId>status-holder</artifactId>
             <version>${revision}</version>
         </dependency>
+        <dependency>
+            <groupId>com.mprtcz</groupId>
+            <artifactId>transaction-executor</artifactId>
+            <version>${revision}</version>
+        </dependency>
     </dependencies>
 
     <build>

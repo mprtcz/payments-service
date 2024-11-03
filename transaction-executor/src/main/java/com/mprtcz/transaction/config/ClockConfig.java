@@ -1,4 +1,4 @@
-package com.mprtcz.initiator.config;
+package com.mprtcz.transaction.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

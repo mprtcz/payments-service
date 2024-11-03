@@ -1,6 +1,5 @@
 package com.mprtcz.transaction.repository;
 
-import com.github.tomakehurst.wiremock.admin.NotFoundException;
 import com.mprtcz.transaction.repository.data.Account;
 import lombok.RequiredArgsConstructor;
 import org.assertj.core.util.VisibleForTesting;
@@ -34,7 +33,7 @@ public class PaymentTransactionRepository {
         var fromAccountOpt = findByAccountNumber(fromAccount);
         System.out.println("fromAccountOpt = " + fromAccountOpt);
         if (fromAccountOpt.isEmpty()) {
-            throw new NotFoundException("Account not found");
+            throw new IllegalArgumentException("Account not found");
         }
         if (fromAccountOpt.get().balance().compareTo(amount) < 0) {
             throw new IllegalArgumentException("Insufficient funds");

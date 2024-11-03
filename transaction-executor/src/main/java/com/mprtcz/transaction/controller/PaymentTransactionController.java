@@ -1,8 +1,8 @@
 package com.mprtcz.transaction.controller;
 
-import com.mprtcz.initiator.controllers.dto.PaymentRequest;
-import com.mprtcz.initiator.publishers.PublisherQueue;
-import com.mprtcz.initiator.publishers.QueueMessage;
+import com.mprtcz.transaction.dto.TransactionRequest;
+import com.mprtcz.transaction.publishers.PublisherQueue;
+import com.mprtcz.transaction.publishers.QueueMessage;
 import com.mprtcz.transaction.service.PaymentTransactionService;
 import lombok.AllArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -11,12 +11,12 @@ import org.springframework.stereotype.Component;
 @Component
 @AllArgsConstructor
 public class PaymentTransactionController {
-    private final PublisherQueue<PaymentRequest> publisherQueue;
+    private final PublisherQueue<TransactionRequest> publisherQueue;
     private final PaymentTransactionService paymentTransactionService;
 
     @Scheduled(fixedDelay = 1000)
     public void processQueueMessages() {
-        QueueMessage<PaymentRequest> message;
+        QueueMessage<TransactionRequest> message;
         do {
             message = publisherQueue.take();
             if (message == null) {

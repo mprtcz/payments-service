@@ -1,8 +1,7 @@
-package com.mprtcz.initiator.publishers;
+package com.mprtcz.transaction.publishers;
 
 import lombok.Getter;
 import lombok.ToString;
-import org.assertj.core.util.VisibleForTesting;
 
 import java.time.Clock;
 import java.time.Instant;
@@ -18,7 +17,6 @@ public class QueueMessage<T> {
     private boolean isTaken = false;
     private Instant firstPollInstant;
 
-    @VisibleForTesting
     QueueMessage(T messageContent) {
         this.messageContent = messageContent;
         this.clock = Clock.systemUTC();
@@ -56,7 +54,6 @@ public class QueueMessage<T> {
         return Objects.hash(messageContent, attempts, isTaken);
     }
 
-    @VisibleForTesting
     void increaseAttempts() {
         attempts.incrementAndGet();
     }

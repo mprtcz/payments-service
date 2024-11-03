@@ -1,6 +1,6 @@
 package com.mprtcz.transaction.service;
 
-import com.mprtcz.initiator.controllers.dto.PaymentRequest;
+import com.mprtcz.transaction.dto.TransactionRequest;
 import com.mprtcz.transaction.repository.PaymentTransactionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -12,9 +12,9 @@ import org.springframework.stereotype.Service;
 public class PaymentTransactionService {
     private final PaymentTransactionRepository transactionRepository;
 
-    public void processTransaction(PaymentRequest messageContent) {
-        transactionRepository.transfer(messageContent.getPaymentRequesterAccountNumber(),
-                messageContent.getPaymentDestinationAccountNumber(),
-                messageContent.getAmount());
+    public void processTransaction(TransactionRequest messageContent) {
+        transactionRepository.transfer(messageContent.paymentRequesterAccountNumber(),
+                messageContent.paymentDestinationAccountNumber(),
+                messageContent.amount());
     }
 }

@@ -1,4 +1,4 @@
-package com.mprtcz.initiator.publishers;
+package com.mprtcz.transaction.publishers;
 
 import org.assertj.core.util.VisibleForTesting;
 import org.springframework.beans.factory.annotation.Value;
