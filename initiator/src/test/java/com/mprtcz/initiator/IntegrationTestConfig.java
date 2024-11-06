@@ -2,6 +2,8 @@ package com.mprtcz.initiator;
 
 
 import com.mprtcz.statusholder.controller.PaymentStatusController;
+import com.mprtcz.transaction.dto.Identifiable;
+import com.mprtcz.transaction.dto.TransactionRequest;
 import com.mprtcz.transaction.publishers.PublisherQueue;
 import com.mprtcz.validator.controller.ValidationController;
 import org.springframework.context.annotation.Bean;
@@ -19,7 +21,7 @@ public class IntegrationTestConfig {
 
     @Bean
     @Primary
-    public PublisherQueue getPublisherQueue() {
+    public PublisherQueue<TransactionRequest> getPublisherQueue() {
         return mock(PublisherQueue.class);
     }
 

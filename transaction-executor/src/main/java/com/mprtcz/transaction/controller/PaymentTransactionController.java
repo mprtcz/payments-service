@@ -28,6 +28,6 @@ public class PaymentTransactionController {
             log.info("Message to process: {}", message);
             paymentTransactionService.processTransaction(message.getMessageContent());
             publisherQueue.acknowledge(message);
-        } while (message != null);
+        } while (true);
     }
 }

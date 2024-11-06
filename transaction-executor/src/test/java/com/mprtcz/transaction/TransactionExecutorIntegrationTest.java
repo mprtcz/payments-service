@@ -110,7 +110,7 @@ class TransactionExecutorIntegrationTest {
                 () -> paymentTransactionController.processQueueMessages());
 
         assertEquals("Failed to credit the amount", ex.getMessage());
-        // Should rollback the requester subtraction
+        // Should roll back the requester subtraction
         var requesterAccount = paymentTransactionRepository.findByAccountNumber(
                 requesterAccountNumber);
         assertEquals(1000, requesterAccount.get().balance().intValue());

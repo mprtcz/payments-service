@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @Getter
 @ToString
-public class QueueMessage<T> {
+public class QueueMessage<T> implements Comparable<QueueMessage<T>> {
     private final T messageContent;
     private final Clock clock;
     private final AtomicInteger attempts = new AtomicInteger(0);
@@ -56,5 +56,12 @@ public class QueueMessage<T> {
 
     void increaseAttempts() {
         attempts.incrementAndGet();
+    }
+
+    @Override
+    public int compareTo(QueueMessage<T> o) {
+        if (o == null) return 1;
+        if (this.isTaken) return 1;
+        return o.isTaken ? -1 : 0;
     }
 }
